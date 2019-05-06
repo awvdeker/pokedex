@@ -39,7 +39,14 @@ function searching (pokename) {
           if (xhr2.status === 200){
             var pokemonTypeObject = JSON.parse(xhr2.responseText);
             pokemonId.innerHTML = pokemonTypeObject.id;
+
+            if (document.getElementById("shownPicture")){
+              pokemonImageRemove=document.getElementById("shownPicture");
+              imageHolder.removeChild(pokemonImageRemove);
+            }
+
             var picture = document.createElement('img');
+            picture.id="shownPicture";
             picture.src=pokemonTypeObject.sprites.front_default;
             picture.height="200";
             picture.width="200";
