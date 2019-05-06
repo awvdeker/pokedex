@@ -4,6 +4,7 @@ var searchButton = document.getElementById('searchButton');
 var pokemonName = document.getElementById('pokemonName');
 var pokemonId = document.getElementById('pokemonId');
 var imageHolder = document.getElementById('imageHolder');
+var pokemonMoves = document.getElementById('pokemonMoves');
 
 searchButton.addEventListener('click', function(){
   searching (pokemonNameInput.value);
@@ -29,6 +30,7 @@ function searching (pokename) {
         pokemonName.innerHTML = 'Not found!';
         pokemonId.innerHTML = "";
         imageHolder.innerHTML = "";
+        pokemonMoves.innerHTML = "";
       } else {
         pokemonName.innerHTML = "Pokemon name: "+ pokename;
 
@@ -38,7 +40,7 @@ function searching (pokename) {
         xhr2.onload = function(){
           if (xhr2.status === 200){
             var pokemonTypeObject = JSON.parse(xhr2.responseText);
-            pokemonId.innerHTML = pokemonTypeObject.id;
+            pokemonId.innerHTML = "ID: " + pokemonTypeObject.id;
 
             if (document.getElementById("shownPicture")){
               pokemonImageRemove=document.getElementById("shownPicture");
@@ -52,6 +54,10 @@ function searching (pokename) {
             picture.width="200";
             imageHolder.appendChild(picture);
 
+            pokemonMoves.innerHTML = "";
+            for (let i = 0 ; i < 4 ; i++){
+              pokemonMoves.innerHTML += "move "+ (i+1) + ": " + pokemonTypeObject.moves[i].move.name + "<br/>";
+            }
           }
         }
 
